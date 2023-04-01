@@ -30,7 +30,7 @@ class BottomAppBarWidgetState extends ConsumerStatefulWidget {
 class _BottomAppBarWidgetStateState
     extends ConsumerState<BottomAppBarWidgetState> {
   final List<Widget> _widgetOptions = [];
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   late bool mode;
   late String text;
 
