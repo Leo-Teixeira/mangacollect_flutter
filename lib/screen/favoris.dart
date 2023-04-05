@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:manga_flutter/provider/mangas_provider.dart';
 
 class FavorisWidget extends ConsumerWidget {
   const FavorisWidget({Key? key}) : super(key: key);
@@ -14,36 +15,29 @@ class FavorisWidget extends ConsumerWidget {
 }
 
 Widget body(WidgetRef ref) {
-  // final list = ref.watch(LocationProvider);
+  final list = ref.watch(mangaProvider);
   return Center(
     child: ListView.separated(
-      itemCount: 10,
+      itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-          onTap: () {
-            // addPos(list[index].lat ?? 0.0, list[index].long ?? 0.0);
-            // ref.refresh(meteoProvider);
-            // ref.watch(MapProvider.notifier).saveAddPoint(
-            //     LatLng(list[index].lat ?? 0.0, list[index].long ?? 0.0));
-            // Navigator.of(context).push(MaterialPageRoute(
-            //     builder: (context) => const BottomAppBarWidgetState()));
-          },
-          // leading: const Icon(Icons.apartment),
-          title: Text("test"),
-          subtitle: Text("testtest"),
-          trailing: IconButton(
-            onPressed: () {
-              // ref.read(LocationProvider.notifier).remove(list[index], index);
-            },
-            icon: const Icon(
-              Icons.bookmark,
-              color: Colors.yellow,
+        return Card(
+          child: ListTile(
+            leading: Image.network(
+                list[index].data.images['jpg']['small_image_url']),
+            title: Text(list[index].data.title),
+            trailing: IconButton(
+              onPressed: () {
+                ref.read(mangaProvider.notifier).remove(list[index], index);
+              },
+              icon: const Icon(
+                Icons.delete,
+              ),
             ),
           ),
         );
       },
       separatorBuilder: (BuildContext context, int index) {
-        return const Divider(height: 0);
+        return const Divider(height: 8);
       },
     ),
   );

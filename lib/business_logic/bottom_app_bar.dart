@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/linecons_icons.dart';
+import 'package:manga_flutter/business_logic/constante.dart';
+import 'package:manga_flutter/provider/mangas_provider.dart';
+import 'package:manga_flutter/repository/mangas_repository.dart';
 import 'package:manga_flutter/screen/favoris.dart';
 import 'package:manga_flutter/screen/home.dart';
 
@@ -58,31 +61,10 @@ class _BottomAppBarWidgetStateState
 
 PreferredSizeWidget? appBar(BuildContext context, WidgetRef ref) {
   return AppBar(
-    backgroundColor: const Color(0xFFBD1ACD),
+    backgroundColor: colorAppBar,
     systemOverlayStyle: const SystemUiOverlayStyle(),
-    leading: IconButton(
-        onPressed: () {
-          // Navigator.of(context).push(MaterialPageRoute(
-          //     builder: ((context) => const ParametersWidget())));
-        },
-        icon: const Icon(Linecons.params)),
     title: const Text("Manga Collect"),
     centerTitle: true,
-    // actions: [
-    //   IconButton(
-    //       onPressed: () {
-    //         ref.read(ThemeProvider.notifier).state =
-    //             ref.watch(ThemeProvider).name == "light"
-    //                 ? ThemeApp.dark
-    //                 : ThemeApp.light;
-    //       },
-    //       icon: ref.watch(ThemeProvider).name == "dark"
-    //           ? const Icon(FontAwesome5.moon)
-    //           : const Icon(FontAwesome5.sun)),
-    // ],
-    shape: const RoundedRectangleBorder(
-        side: BorderSide.none,
-        borderRadius: BorderRadius.all(Radius.circular(30))),
     elevation: 20.0,
     shadowColor: Colors.blueGrey,
   );
@@ -102,9 +84,9 @@ Widget bottomAppBar(int selectedIndex, Function(int)? onItemTapped) {
         label: 'Favoris',
       ),
     ],
-    selectedItemColor: Colors.amber,
+    selectedItemColor: colorButton,
     unselectedItemColor: Colors.grey,
-    selectedIconTheme: const IconThemeData(color: Colors.amberAccent),
+    selectedIconTheme: const IconThemeData(color: colorButton),
     unselectedIconTheme: const IconThemeData(color: Colors.grey),
     selectedFontSize: 12,
     unselectedFontSize: 12,
