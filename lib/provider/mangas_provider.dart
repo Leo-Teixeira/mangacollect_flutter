@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,7 +57,7 @@ class MangaFavorisNotifier extends StateNotifier<List<Mangas>> {
   //passer les preference en tant que liste initial
 
   void add(Mangas manga) {
-    // saveAdr(manga);
+    saveMangas(manga);
     state = [...state, manga];
   }
 
@@ -84,25 +86,22 @@ getMangas() async {
   Map<String, dynamic> decode = {};
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   listJson = prefs.getStringList("mangas")!.toList();
-  print(listJson);
-  if (listJson.length != 0) {
+  if (listJson.isNotEmpty) {
     for (int i = 0; i < listJson.length; i++) {
       decode = jsonDecode(listJson[i]);
-      print(decode);
-      print(decode['route_shot_name']);
       // lignesList.add(Mangas.fromtest(decode));
     }
   }
   return lignesList;
 }
 
-Future<void> saveAdr(Mangas lignes) async {
+Future<void> saveMangas(Mangas mangas) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   if (prefs.getStringList("mangas") == null) {
-    // listJson.add(jsonEncode(lignes.toJson()));
+    listJson.add(jsonEncode(mangas.toMap()));
   } else {
     listJson = prefs.getStringList("mangas")!;
-    // listJson.add(jsonEncode(lignes.toJson()));
+    listJson.add(jsonEncode(mangas.toMap()));
   }
   prefs.setStringList('mangas', listJson);
 }

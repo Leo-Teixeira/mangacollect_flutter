@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:manga_flutter/model/manga.dart';
-import 'package:manga_flutter/provider/mangas_provider.dart';
 
 class MangasRepository {
   Future<List<Mangas>> fetchMangas(int pagination) async {

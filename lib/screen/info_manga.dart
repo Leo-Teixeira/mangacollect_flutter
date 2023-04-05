@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:manga_flutter/business_logic/constante.dart';
 import 'package:manga_flutter/model/manga.dart';
 
-class infoMangaWidget extends ConsumerWidget {
+class InfoMangaWidget extends ConsumerWidget {
   final Mangas manga;
-  const infoMangaWidget({super.key, required this.manga});
+  const InfoMangaWidget({super.key, required this.manga});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

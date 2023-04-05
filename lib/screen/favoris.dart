@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:manga_flutter/provider/mangas_provider.dart';
+import 'package:manga_flutter/screen/info_manga.dart';
 
 class FavorisWidget extends ConsumerWidget {
   const FavorisWidget({Key? key}) : super(key: key);
@@ -22,6 +22,13 @@ Widget body(WidgetRef ref) {
       itemBuilder: (BuildContext context, int index) {
         return Card(
           child: ListTile(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => InfoMangaWidget(manga: list[index]),
+                ),
+              );
+            },
             leading: Image.network(
                 list[index].data.images['jpg']['small_image_url']),
             title: Text(list[index].data.title),

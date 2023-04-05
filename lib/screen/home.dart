@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:fluttericon/linecons_icons.dart';
 import 'package:manga_flutter/business_logic/constante.dart';
 import 'package:manga_flutter/model/manga.dart';
 import 'package:manga_flutter/provider/mangas_provider.dart';
@@ -84,7 +81,7 @@ class HomeWidgetState extends ConsumerState<HomeWidget> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      infoMangaWidget(manga: mangasList[index]),
+                                      InfoMangaWidget(manga: mangasList[index]),
                                 ),
                               );
                             },
@@ -115,7 +112,7 @@ class HomeWidgetState extends ConsumerState<HomeWidget> {
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => infoMangaWidget(
+                                builder: (context) => InfoMangaWidget(
                                     manga: mangasListSearch[index]),
                               ),
                             );

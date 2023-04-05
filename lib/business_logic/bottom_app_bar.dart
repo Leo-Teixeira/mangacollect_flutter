@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
-import 'package:fluttericon/linecons_icons.dart';
 import 'package:manga_flutter/business_logic/constante.dart';
-import 'package:manga_flutter/provider/mangas_provider.dart';
-import 'package:manga_flutter/repository/mangas_repository.dart';
 import 'package:manga_flutter/screen/favoris.dart';
 import 'package:manga_flutter/screen/home.dart';
 
@@ -14,10 +10,10 @@ class BottomAppBarWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
+    return const MaterialApp(
       title: "Manga Collect",
       debugShowCheckedModeBanner: false,
-      home: const BottomAppBarWidgetState(),
+      home: BottomAppBarWidgetState(),
     );
   }
 }
