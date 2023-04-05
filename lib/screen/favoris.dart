@@ -34,7 +34,7 @@ Widget body(WidgetRef ref) {
             title: Text(list[index].data.title),
             trailing: IconButton(
               onPressed: () {
-                ref.read(mangaProvider.notifier).remove(list[index], index);
+                ref.read(mangaProvider.notifier).delete(list[index], index);
               },
               icon: const Icon(
                 Icons.delete,

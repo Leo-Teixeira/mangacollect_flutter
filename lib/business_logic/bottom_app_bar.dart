@@ -30,14 +30,12 @@ class _BottomAppBarWidgetStateState
     extends ConsumerState<BottomAppBarWidgetState> {
   final List<Widget> _widgetOptions = [];
   int _selectedIndex = 0;
-  late bool mode;
   late String text;
 
   @override
   void initState() {
     super.initState();
     _widgetOptions.addAll([const HomeWidget(), const FavorisWidget()]);
-    mode = false;
   }
 
   _onItemTapped(int index) async {
@@ -49,44 +47,36 @@ class _BottomAppBarWidgetStateState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBar(context, ref),
+        appBar: AppBar(
+          backgroundColor: colorAppBar,
+          systemOverlayStyle: const SystemUiOverlayStyle(),
+          title: const Text("Manga Collect"),
+          centerTitle: true,
+          elevation: 20.0,
+          shadowColor: Colors.blueGrey,
+        ),
         body: _widgetOptions.elementAt(_selectedIndex),
-        bottomNavigationBar: bottomAppBar(_selectedIndex, _onItemTapped));
+        bottomNavigationBar: BottomNavigationBar(
+          enableFeedback: true,
+          type: BottomNavigationBarType.fixed,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Acceuil',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_sharp),
+              label: 'Favoris',
+            ),
+          ],
+          selectedItemColor: colorButton,
+          unselectedItemColor: Colors.grey,
+          selectedIconTheme: const IconThemeData(color: colorButton),
+          unselectedIconTheme: const IconThemeData(color: Colors.grey),
+          selectedFontSize: 12,
+          unselectedFontSize: 12,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+        ));
   }
-}
-
-PreferredSizeWidget? appBar(BuildContext context, WidgetRef ref) {
-  return AppBar(
-    backgroundColor: colorAppBar,
-    systemOverlayStyle: const SystemUiOverlayStyle(),
-    title: const Text("Manga Collect"),
-    centerTitle: true,
-    elevation: 20.0,
-    shadowColor: Colors.blueGrey,
-  );
-}
-
-Widget bottomAppBar(int selectedIndex, Function(int)? onItemTapped) {
-  return BottomNavigationBar(
-    enableFeedback: true,
-    type: BottomNavigationBarType.fixed,
-    items: const <BottomNavigationBarItem>[
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Acceuil',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.favorite_sharp),
-        label: 'Favoris',
-      ),
-    ],
-    selectedItemColor: colorButton,
-    unselectedItemColor: Colors.grey,
-    selectedIconTheme: const IconThemeData(color: colorButton),
-    unselectedIconTheme: const IconThemeData(color: Colors.grey),
-    selectedFontSize: 12,
-    unselectedFontSize: 12,
-    currentIndex: selectedIndex,
-    onTap: onItemTapped,
-  );
 }

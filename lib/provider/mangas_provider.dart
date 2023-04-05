@@ -30,19 +30,20 @@ final mangasListProvider =
   return true;
 });
 
-enum ListMode { LIST, SEARCH }
+enum ListSearch { LIST, SEARCH }
 
-final listModeProviderState = StateProvider<ListMode>((_) => ListMode.LIST);
+final listSearchProviderState =
+    StateProvider<ListSearch>((_) => ListSearch.LIST);
 
-final listModePorvider = Provider<ListMode>((ref) {
-  final ListMode sortType = ref.watch(listModeProviderState);
+final listModePorvider = Provider<ListSearch>((ref) {
+  final ListSearch sortType = ref.watch(listSearchProviderState);
 
   switch (sortType) {
-    case ListMode.LIST:
-      return ListMode.LIST;
+    case ListSearch.LIST:
+      return ListSearch.LIST;
 
-    case ListMode.SEARCH:
-      return ListMode.SEARCH;
+    case ListSearch.SEARCH:
+      return ListSearch.SEARCH;
   }
 });
 
@@ -61,38 +62,27 @@ class MangaFavorisNotifier extends StateNotifier<List<Mangas>> {
     state = [...state, manga];
   }
 
-  // void addListAdr(List<Mangas> mangas) {
-  //   state = mangas;
-  // }
-
-  void remove(Mangas manga, int index) {
-    deleteAdr(index);
+  void delete(Mangas manga, int index) {
+    deleteMangas(index);
     state = [
       for (final mg in state)
         if (mg.data.mal_id != manga.data.mal_id) mg,
     ];
   }
-
-  // void getLignes() async {
-  //   List<Mangas> mangasList = await getMangas();
-  //   state = mangasList;
-  // }
 }
 
 List<String> listJson = [];
 
 getMangas() async {
-  List<Mangas> lignesList = [];
-  Map<String, dynamic> decode = {};
+  List<Mangas> mangas = [];
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   listJson = prefs.getStringList("mangas")!.toList();
   if (listJson.isNotEmpty) {
     for (int i = 0; i < listJson.length; i++) {
-      decode = jsonDecode(listJson[i]);
       // lignesList.add(Mangas.fromtest(decode));
     }
   }
-  return lignesList;
+  return mangas;
 }
 
 Future<void> saveMangas(Mangas mangas) async {
@@ -106,7 +96,7 @@ Future<void> saveMangas(Mangas mangas) async {
   prefs.setStringList('mangas', listJson);
 }
 
-Future<void> deleteAdr(int lignesIndex) async {
+Future<void> deleteMangas(int lignesIndex) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   listJson = prefs.getStringList('mangas')!;
   listJson.removeAt(lignesIndex);

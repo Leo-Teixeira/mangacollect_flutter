@@ -23,7 +23,7 @@ class HomeWidgetState extends ConsumerState<HomeWidget> {
       mangasListProvider(page),
     );
     List<Mangas> mangasList = ref.watch(mangasProvider);
-    ListMode mode = ref.watch(listModeProviderState);
+    ListSearch mode = ref.watch(listSearchProviderState);
 
     return Scaffold(
       body: Column(
@@ -39,13 +39,13 @@ class HomeWidgetState extends ConsumerState<HomeWidget> {
                 borderSide: BorderSide.none,
               ),
               prefixIcon: const Icon(Icons.search),
-              suffixIcon: mode == ListMode.SEARCH
+              suffixIcon: mode == ListSearch.SEARCH
                   ? IconButton(
                       onPressed: () {
                         controller.clear();
                         ref
-                            .watch(listModeProviderState.notifier)
-                            .update((state) => ListMode.LIST);
+                            .watch(listSearchProviderState.notifier)
+                            .update((state) => ListSearch.LIST);
                       },
                       icon: const Icon(
                         Icons.cancel,
@@ -57,12 +57,12 @@ class HomeWidgetState extends ConsumerState<HomeWidget> {
             onChanged: (value) async {
               if (value.isEmpty) {
                 ref
-                    .watch(listModeProviderState.notifier)
-                    .update((state) => ListMode.LIST);
+                    .watch(listSearchProviderState.notifier)
+                    .update((state) => ListSearch.LIST);
               } else {
                 ref
-                    .watch(listModeProviderState.notifier)
-                    .update((state) => ListMode.SEARCH);
+                    .watch(listSearchProviderState.notifier)
+                    .update((state) => ListSearch.SEARCH);
               }
               final MangasRepository mangasRepo = MangasRepository();
               List<Mangas> mangas = await mangasRepo.searchMangas(value);
@@ -72,7 +72,7 @@ class HomeWidgetState extends ConsumerState<HomeWidget> {
             },
           ),
           Expanded(
-              child: mode == ListMode.LIST
+              child: mode == ListSearch.LIST
                   ? ListView.separated(
                       itemBuilder: (context, index) {
                         return Card(
